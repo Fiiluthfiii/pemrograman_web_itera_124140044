@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini POS | Sistem Kasir Modern & POS Kampus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container-header">
+            <div class="brand">
+                <div class="brand-text">
+                    <h1 class="brand-title">Mini <span class="highlight">POS</span></h1>
+                    <p class="brand-subtitle">Sistem Kasir Mahasiswa & Toko Kampus</p>
+                </div>
+            </div>
+
+            <div class="quick-add-desktop">
+                <span class="quick-label"> Cepat:</span>
+                <button class="btn-quick" onclick="fillPreset('Buku Tulis Sinar', 4500, 3)">+ Buku Tulis</button>
+                <button class="btn-quick" onclick="fillPreset('Kopi Susu Kantin', 8000, 2)">+ Kopi Susu</button>
+                <button class="btn-quick" onclick="fillPreset('Air Mineral 600ml', 3500, 2)">+ Air Mineral</button>
+                <button class="btn-quick" onclick="fillPreset('Nasi Ayam Geprek', 18000, 2)">+ Ayam Geprek</button>
+            </div>
+
+            <div class="clock">
+                <span class="clock-date" id="currentDate">Senin, 5 Oktober 2026</span>
+                <span class="clock-time" id="currentTime">21:40:57 WIB</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <main class="main-container">
+        <div class="promo-banner">
+            <p class="promo-text">
+                <strong>Promo Otomatis:</strong> Diskon 10% jika belanja <strong>≥ Rp 50.000</strong> 
+                atau masukkan kode voucher <span class="promo-code">HEMAT10</span>. Data tersimpan real-time.
+            </p>
+            <div class="quick-add-mobile">
+                <button class="btn-quick-small" onclick="fillPreset('Buku Tulis Sinar', 4500, 3)">+ Buku Tulis</button>
+                <button class="btn-quick-small" onclick="fillPreset('Air Mineral 600ml', 3500, 2)">+ Air Mineral</button>
+                <button class="btn-quick-small" onclick="fillPreset('Nasi Ayam Geprek', 18000, 2)">+ Geprek</button>
+            </div>
+        </div>
+
+        <div class="grid-layout">
+=            <div class="left-column">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-number">1</div>
+                        <div>
+                            <h3 class="card-title">Input Data Barang</h3>
+                            <p class="card-subtitle">Tambah produk belanja ke dalam transaksi kasir</p>
+                        </div>
+                        <span class="badge badge-primary">WAJIB VALID</span>
+                    </div>
+
+                    <form id="itemForm" onsubmit="handleAddItem(event)" novalidate>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="itemName">NAMA BARANG <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="text" id="itemName" class="form-input" placeholder="Misal: Kopi Susu, Nasi Goreng">
+                                </div>
+                                <span class="error-message" id="nameError">Nama barang minimal 3 karakter!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="itemPrice">HARGA (RP) <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="itemPrice" class="form-input" placeholder="Min 500" min="500" step="100">
+                                </div>
+                                <span class="error-message" id="priceError">Min. Rp 500!</span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="itemQty">JUMLAH (QTY) <span class="required">*</span></label>
+                                <div class="input-wrapper">
+                                    <input type="number" id="itemQty" class="form-input" placeholder="1" min="1" value="1">
+                                </div>
+                                <span class="error-message" id="qtyError">Qty bulat min 1!</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <div class="estimation" id="previewSubtotal">
+                                <span>Estimasi Subtotal:</span> <strong>Rp 0</strong>
+                            </div>
+                            <div class="action-buttons">
+                                <button type="button" class="btn btn-secondary" onclick="resetInputForm()">Bersihkan Form</button>
+                                <button type="submit" class="btn btn-primary">
+                                    Tambah ke Keranjang
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-number">2</div>
+                        <div>
+                            <h3 class="card-title">Daftar Keranjang Belanja</h3>
+                            <span class="item-count" id="badgeItemCount">0 Item</span>
+                        </div>
+                        <button class="btn-delete-all" id="btnEmptyCart" onclick="confirmResetCart()" disabled>
+                            Kosongkan Keranjang
+                        </button>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="cart-table">
+                            <thead>
+                                <tr>
+                                    <th class="col-no">NO</th>
+                                    <th class="col-name">NAMA BARANG</th>
+                                    <th class="col-price">HARGA SATUAN</th>
+                                    <th class="col-qty">QTY</th>
+                                    <th class="col-subtotal">SUBTOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cartTableBody">
+                            </tbody>
+                        </table>
+
+                        <div class="empty-state" id="cartEmptyState">
+                            <h4 class="empty-title">Keranjang Belanja Masih Kosong</h4>
+                            <p class="empty-text">Gunakan form di atas atau klik contoh cepat untuk menambahkan barang belanjaan baru.</p>
+                        </div>
+                    </div>
+
+                    <div class="cart-footer">
+                        <span class="cart-info">Rumus: Subtotal = Harga × Qty</span>
+                        <span class="cart-summary" id="cartSummaryText">Total 0 barang (0 unit)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-number">3</div>
+                        <div>
+                            <h3 class="card-title">Rincian Pembayaran</h3>
+                            <p class="card-subtitle">Kalkulasi diskon & nominal bayar</p>
+                        </div>
+                        <span class="badge badge-success">Real-time</span>
+                    </div>
+
+                    <div class="payment-body">
+                        <div class="payment-row">
+                            <span>Total Belanja (Subtotal)</span>
+                            <strong class="amount" id="dispTotalBelanja">Rp 0</strong>
+                        </div>
+
+                        <div class="discount-card">
+                            <div class="discount-header">
+                                <span class="discount-label">Program Diskon (10%)</span>
+                                <span class="discount-badge" id="discountStatusBadge">Belum Memenuhi</span>
+                            </div>
+
+                            <div class="discount-input-group">
+                                <input type="text" id="promoCode" class="discount-input" placeholder="Kode Promo (HEMAT10)">
+                                <button class="btn-apply" onclick="applyPromoCode()">Terapkan</button>
+                            </div>
+
+                            <p class="discount-info" id="discountInfoText">
+                                Otomatis aktif jika belanja minimal <strong>Rp 50.000</strong>.
+                            </p>
+
+                            <div class="discount-amount">
+                                <span>Potongan Diskon</span>
+                                <strong class="amount-discount" id="dispNominalDiskon">- Rp 0</strong>
+                            </div>
+                        </div>
+
+                        <div class="grand-total">
+                            <div>
+                                <span class="grand-label">TOTAL AKHIR BAYAR</span>
+                                <span class="grand-note">Sudah dipotong diskon</span>
+                            </div>
+                            <div class="grand-amount" id="dispTotalAkhir">Rp 0</div>
+                        </div>
+
+                        <div class="payment-section">
+                            <div class="cash-header">
+                                <label for="cashPaidInput">UANG BAYAR DITERIMA (RP) <span class="required">*</span></label>
+                                <div class="cash-shortcuts">
+                                    <button class="btn-shortcut" onclick="setExactCash()">Uang Pas</button>
+                                    <button class="btn-shortcut" onclick="addQuickCash(20000)">+20k</button>
+                                    <button class="btn-shortcut" onclick="addQuickCash(50000)">+50k</button>
+                                    <button class="btn-shortcut" onclick="addQuickCash(100000)">+100k</button>
+                                </div>
+                            </div>
+
+                            <div class="input-wrapper">
+                                <input type="number" id="cashPaidInput" class="cash-input" placeholder="0" min="0" step="500" oninput="handleCashPaymentCalculation()">
+                            </div>
+                        </div>
+
+                        <div class="change-box" id="changeResultBox">
+                            <div class="change-header">
+                                <span>Status Pembayaran:</span>
+                                <span class="change-badge" id="changeStatusBadge">Keranjang Kosong</span>
+                            </div>
+                            <div class="change-amount-row">
+                                <span id="changeLabel">Kembalian</span>
+                                <span class="change-amount" id="dispChangeAmount">Rp 0</span>
+                            </div>
+                            <p class="change-note" id="changeNote">Tambahkan barang terlebih dahulu.</p>
+                        </div>
+
+                        <div class="final-actions">
+                            <button class="btn btn-finish" id="btnFinishTransaction" onclick="finishTransaction()" disabled>
+                                Bayar & Cetak Struk
+                            </button>
+                            <button class="btn btn-new" onclick="newTransactionPrompt()">
+                                Transaksi Baru
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="receiptModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeReceiptModal()">✕</button>
+            
+            <div class="receipt-header">
+                <h4 class="receipt-title">KANTIN KAMPUS SEJAHTERA</h4>
+                <p class="receipt-location">Gedung Pusat Mahasiswa Lt. 1</p>
+                <p class="receipt-date" id="receiptDate">2026-10-05 21:36</p>
+            </div>
+
+            <div class="receipt-items" id="receiptItemList">
+            </div>
+
+            <div class="receipt-calculation">
+                <div class="receipt-row">
+                    <span>Subtotal:</span>
+                    <span id="rcpSubtotal">Rp 0</span>
+                </div>
+                <div class="receipt-row discount">
+                    <span>Diskon (10%):</span>
+                    <span id="rcpDiscount">- Rp 0</span>
+                </div>
+                <div class="receipt-row total">
+                    <span>TOTAL AKHIR:</span>
+                    <span id="rcpGrandTotal">Rp 0</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Uang Bayar:</span>
+                    <span id="rcpCashPaid">Rp 0</span>
+                </div>
+                <div class="receipt-row">
+                    <span>Kembalian:</span>
+                    <span id="rcpChange">Rp 0</span>
+                </div>
+            </div>
+
+            <div class="receipt-footer">
+                Terima kasih atas kunjungan Anda!<br>
+                Simpan struk ini sebagai bukti pembayaran sah.
+            </div>
+
+            <div class="receipt-actions">
+                <button class="btn btn-secondary" onclick="window.print()">Cetak Struk</button>
+                <button class="btn btn-primary" onclick="startFreshAfterReceipt()">Transaksi Baru</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
