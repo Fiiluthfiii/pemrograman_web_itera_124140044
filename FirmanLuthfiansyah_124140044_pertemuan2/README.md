@@ -4,15 +4,13 @@
 
 - **Nama Lengkap:** Firman Luthfiansyah
 - **NIM:** 124140044
-- **Kelas Praktikum:** Pemrograman Web
+- **Kelas Praktikum:** Pemrograman aplikasi Web
 
 ## Deskripsi Aplikasi
 
 Aplikasi ini merupakan dashboard personal sederhana untuk mencatat dan mengelola daftar tugas kuliah maupun aktivitas harian. Studi kasus yang dipilih adalah **manajemen tugas pribadi**.
 
 Tujuan pembuatan aplikasi ini adalah membantu pengguna melihat ringkasan tugas, menambahkan tugas baru, menentukan prioritas dan tenggat waktu, serta memantau tugas yang sudah selesai dalam satu halaman.
-
-Aplikasi dibuat menggunakan HTML, CSS, dan JavaScript tanpa framework tambahan. Data tugas dapat diambil dari API JSONPlaceholder ketika aplikasi pertama kali dijalankan, kemudian disimpan secara lokal pada browser.
 
 ## Panduan Menjalankan Aplikasi
 
@@ -30,24 +28,24 @@ File `index.html` juga dapat dibuka langsung dengan browser. Namun, Live Server 
 
 ## Daftar Fitur
 
-- ✓ Menampilkan tanggal hari ini.
-- ✓ Menampilkan ringkasan jumlah seluruh tugas.
-- ✓ Menampilkan jumlah tugas yang belum selesai.
-- ✓ Menampilkan jumlah tugas yang sudah selesai.
-- ✓ Menambahkan tugas baru.
-- ✓ Mengatur prioritas tugas: rendah, sedang, dan tinggi.
-- ✓ Menambahkan tenggat waktu tugas.
-- ✓ Mengedit tugas yang sudah dibuat.
-- ✓ Menghapus tugas.
-- ✓ Menandai tugas sebagai selesai menggunakan checkbox.
-- ✓ Memfilter tugas berdasarkan status.
-- ✓ Menyimpan data tugas menggunakan `localStorage`.
-- ✓ Mengambil data awal dari API JSONPlaceholder menggunakan `fetch`.
-- ✓ Menyediakan data cadangan apabila API tidak dapat diakses.
-- ✓ Menggunakan desain responsif untuk layar desktop dan perangkat mobile.
-- ✓ Menggunakan class `ItemTugas` dan `AplikasiDashboard`.
-- ✓ Menggunakan fitur ES6+, seperti `let`, `const`, arrow function, destructuring, spread operator, dan template literals.
-- ✓ Menggunakan fungsi asynchronous dengan `async/await`.
+- [x] Menampilkan tanggal hari ini.
+- [x] Menampilkan ringkasan jumlah seluruh tugas.
+- [x] Menampilkan jumlah tugas yang belum selesai.
+- [x] Menampilkan jumlah tugas yang sudah selesai.
+- [x] Menambahkan tugas baru.
+- [x] Mengatur prioritas tugas: rendah, sedang, dan tinggi.
+- [x] Menambahkan tenggat waktu tugas.
+- [x] Mengedit tugas yang sudah dibuat.
+- [x] Menghapus tugas.
+- [x] Menandai tugas sebagai selesai menggunakan checkbox.
+- [x] Memfilter tugas berdasarkan status.
+- [x] Menyimpan data tugas menggunakan `localStorage`.
+- [x] Mengambil data awal dari API JSONPlaceholder menggunakan `fetch`.
+- [x] Menyediakan data cadangan apabila API tidak dapat diakses.
+- [x] Menggunakan desain responsif untuk layar desktop dan perangkat mobile.
+- [x] Menggunakan class `ItemTugas` dan `AplikasiDashboard`.
+- [x] Menggunakan fitur ES6+, seperti `let`, `const`, arrow function, destructuring, spread operator, dan template literals.
+- [x] Menggunakan fungsi asynchronous dengan `async/await`.
 
 ## Tangkapan Layar
 
