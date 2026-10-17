@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskBoard - Dashboard Personal</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wadah">
+    <header class="kepala">
+      <div>
+        <p class="label-atas">DASHBOARD PERSONAL</p>
+        <h1>Daftar Tugas Saya</h1>
+        <p class="subjudul">Atur tugas kuliah dan aktivitas harianmu dengan lebih teratur.</p>
+      </div>
+      <div class="kotak-tanggal">
+        <span id="hari-ini">Hari ini</span>
+      </div>
+    </header>
+
+    <section class="ringkasan" aria-label="Ringkasan tugas">
+      <article class="kartu-ringkasan"><span>Total Tugas</span><strong id="jumlah-total">0</strong></article>
+      <article class="kartu-ringkasan"><span>Belum Selesai</span><strong id="jumlah-belum">0</strong></article>
+      <article class="kartu-ringkasan"><span>Selesai</span><strong id="jumlah-selesai">0</strong></article>
+    </section>
+
+    <section class="panel panel-formulir">
+      <div class="judul-bagian">
+        <div>
+          <h2 id="judul-formulir">Tambah Tugas</h2>
+          <p>Catat tugas baru agar tidak terlupa.</p>
+        </div>
+      </div>
+      <form id="formulir-tugas">
+        <input type="hidden" id="id-tugas">
+        <div class="kisi-formulir">
+          <label>Nama tugas<input id="judul-tugas-input" type="text" placeholder="Contoh: Kerjakan laporan praktikum" required></label>
+          <label>Prioritas
+            <select id="prioritas-tugas">
+              <option value="rendah">Rendah</option>
+              <option value="sedang" selected>Sedang</option>
+              <option value="tinggi">Tinggi</option>
+            </select>
+          </label>
+          <label>Tenggat waktu<input id="tenggat-tugas" type="date"></label>
+        </div>
+        <div class="aksi-formulir">
+          <button class="tombol utama" type="submit" id="tombol-kirim">Tambah Tugas</button>
+          <button class="tombol sekunder tersembunyi" type="button" id="tombol-batal">Batal Edit</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel panel-daftar">
+      <div class="kepala-daftar">
+        <div><h2>Daftar Tugas</h2><p id="pesan-tugas">Memuat tugas...</p></div>
+        <select id="filter-status-tugas" aria-label="Filter tugas">
+          <option value="semua">Semua tugas</option>
+          <option value="belum">Belum selesai</option>
+          <option value="selesai">Selesai</option>
+        </select>
+      </div>
+      <div id="daftar-tugas" class="daftar-tugas"></div>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

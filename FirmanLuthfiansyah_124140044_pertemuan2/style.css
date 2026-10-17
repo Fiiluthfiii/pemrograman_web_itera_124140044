@@ -1,0 +1,306 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #f4f7fb;
+  --surface: #ffffff;
+  --text: #1e293b;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --success: #15803d;
+  --danger: #dc2626;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+.wadah {
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding: 42px 0 60px;
+}
+
+.kepala {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.label-atas {
+  margin: 0 0 10px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 8px;
+  font-size: clamp(28px, 5vw, 40px);
+}
+
+h2 {
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+
+.subjudul,
+.judul-bagian p,
+.kepala-daftar p {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.kotak-tanggal {
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+.ringkasan {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.kartu-ringkasan,
+.panel {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: 0 3px 12px rgb(15 23 42 / 4%);
+}
+
+.kartu-ringkasan {
+  padding: 18px;
+}
+
+.kartu-ringkasan span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.kartu-ringkasan strong {
+  font-size: 28px;
+}
+
+.panel {
+  margin-bottom: 22px;
+  padding: 24px;
+}
+
+.judul-bagian,
+.kepala-daftar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.kisi-formulir {
+  display: grid;
+  grid-template-columns: 1fr 180px 180px;
+  gap: 14px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+input,
+select {
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary);
+  outline: 2px solid #bfdbfe;
+}
+
+.aksi-formulir {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tombol {
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 7px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.utama {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.utama:hover {
+  background: var(--primary-dark);
+}
+
+.sekunder {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.tersembunyi {
+  display: none;
+}
+
+.daftar-tugas {
+  display: grid;
+  gap: 11px;
+}
+
+.item-tugas {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+}
+
+.item-tugas.selesai {
+  border-left-color: var(--success);
+  background: #f8fafc;
+}
+
+.cek-tugas {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--success);
+}
+
+.judul-tugas {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.selesai .judul-tugas {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.meta-tugas {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.lencana {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.lencana.rendah {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.lencana.sedang {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.lencana.tinggi {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.aksi-tugas {
+  display: flex;
+  gap: 7px;
+}
+
+.tombol-ikon {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.tombol-ikon:hover {
+  background: #f1f5f9;
+  color: var(--primary);
+}
+
+.tombol-ikon.hapus:hover {
+  color: var(--danger);
+}
+
+.kosong {
+  padding: 25px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 680px) {
+  .kepala,
+  .kepala-daftar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ringkasan,
+  .kisi-formulir {
+    grid-template-columns: 1fr;
+  }
+
+  .kotak-tanggal {
+    width: fit-content;
+  }
+
+  .item-tugas {
+    grid-template-columns: auto 1fr;
+  }
+
+  .aksi-tugas {
+    grid-column: 2;
+  }
+}
