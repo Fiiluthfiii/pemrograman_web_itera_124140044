@@ -1,0 +1,7 @@
+import { createContext, useCallback, useContext, useMemo } from 'react'
+import useLocalStorage from '../hooks/useLocalStorage'
+const starterBooks = [{ id: 1, title: 'The Creative Act', author: 'Rick Rubin', status: 'read', genre: 'Creativity', year: '2023', rating: 5 }, { id: 2, title: 'Atomic Habits', author: 'James Clear', status: 'reading', genre: 'Self development', year: '2018', rating: 4 }, { id: 3, title: 'Steal Like an Artist', author: 'Austin Kleon', status: 'owned', genre: 'Creativity', year: '2012', rating: 4 }, { id: 4, title: 'The Midnight Library', author: 'Matt Haig', status: 'wishlist', genre: 'Fiction', year: '2020', rating: 0 }]
+const BookContext = createContext(null)
+export function BookProvider({ children }) { const [books, setBooks] = useLocalStorage('bookshelf-books', starterBooks); const addBook = useCallback((book) => setBooks((current) => [{ ...book, id: Date.now() }, ...current]), [setBooks]); const updateBook = useCallback((book) => setBooks((current) => current.map((item) => item.id === book.id ? book : item)), [setBooks]); const deleteBook = useCallback((id) => setBooks((current) => current.filter((book) => book.id !== id)), [setBooks]); const value = useMemo(() => ({ books, addBook, updateBook, deleteBook }), [books, addBook, updateBook, deleteBook]); return <BookContext.Provider value={value}>{children}</BookContext.Provider> }
+// eslint-disable-next-line react-refresh/only-export-components
+export const useBooks = () => useContext(BookContext)

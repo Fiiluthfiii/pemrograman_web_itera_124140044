@@ -1,0 +1,4 @@
+import PropTypes from 'prop-types'
+function BookFilter({ search, status, onSearch, onStatus }) { return <div className="filter-bar"><div className="search-wrap"><span>⌕</span><input value={search} onChange={(e) => onSearch(e.target.value)} placeholder="Cari judul atau penulis..." aria-label="Cari buku" /></div><select value={status} onChange={(e) => onStatus(e.target.value)} aria-label="Filter status"><option value="all">Semua status</option><option value="owned">Dimiliki</option><option value="reading">Sedang dibaca</option><option value="read">Selesai dibaca</option><option value="wishlist">Ingin dibeli</option></select></div> }
+BookFilter.propTypes = { search: PropTypes.string.isRequired, status: PropTypes.string.isRequired, onSearch: PropTypes.func.isRequired, onStatus: PropTypes.func.isRequired }
+export default BookFilter
