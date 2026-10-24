@@ -1,7 +1,5 @@
 ## Deskripsi Aplikasi
 
-BookShelf menyediakan dua halaman utama:
-
 - **Koleksi**: menampilkan seluruh buku, pencarian, filter status, serta fitur tambah, edit, dan hapus buku.
 - **Statistik**: menampilkan jumlah total buku, jumlah buku berdasarkan status, dan persentase buku yang sudah selesai dibaca.
 
